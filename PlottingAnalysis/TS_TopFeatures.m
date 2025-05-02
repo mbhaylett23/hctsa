@@ -556,6 +556,9 @@ if isfield(cfnParams,'classifierFilename') && ~isempty(cfnParams.classifierFilen
     cfnParams.numFolds = 0;
 
     % Train a classification model on the top feature:
+    labels = [TimeSeries.Group];  % or another field that has your class labels
+    [XTrain, yTrain, XTest, yTest] = TS_TrainTestSplit(TS_DataMat, TimeSeries, labels, cfnParams);
+
     GiveMeCfn(XTrain,yTrain,XTest,yTest,cfnParams,beVerbose)
     [bestTestStat,bestMdl,whatTestStat] = GiveMeCfn(topFeatureValues,TimeSeries.Group,...
                                                     topFeatureValues,TimeSeries.Group,...
